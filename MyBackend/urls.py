@@ -1,6 +1,7 @@
 """
 URL configuration for MyBackend project.
 
+
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.2/topics/http/urls/
 Examples:
@@ -16,9 +17,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from . import views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('registration/', include('registration.urls')),
+    path('', views.home, name='home'),
+
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
+    path('users/', views.user_list_view, name='user_list'),
 ]
+
 

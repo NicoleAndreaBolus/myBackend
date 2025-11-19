@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Login</title>
+  <style>
+    /* Universal reset for consistent sizing */
+    * { box-sizing: border-box; }
+
+    body { 
+        font-family: Arial, sans-serif; 
+        background: #f7f9fc; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        height: 100vh; 
+        margin: 0; /* Removes default body margin */
+    }
+
+    .card { 
+        background: white; 
+        padding: 30px; 
+        border-radius: 8px; 
+        box-shadow: 0 0 15px rgba(0,0,0,0.1); 
+        width: 320px; 
+    }
+
+    h2 {
+        text-align: center;
+        color: #2c3e50;
+        margin-top: 0;
+    }
+
+    .field { margin-bottom: 15px; }
+    
+    label { 
+        display: block; 
+        font-weight: bold; 
+        margin-bottom: 6px; 
+        color: #333;
+    }
+    
+    input { 
+        width: 100%; 
+        padding: 10px; 
+        border: 1px solid #ddd; 
+        border-radius: 6px; 
+    }
+
+    button { 
+        width: 100%; 
+        padding: 10px; 
+        background: #2b6cb0; 
+        color: white; 
+        border: none; 
+        border-radius: 6px; 
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: background 0.3s;
+    }
+
+    button:hover {
+        background: #1a4971;
+    }
+
+    /* Link to go back home */
+    .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 15px;
+        color: #2b6cb0;
+        text-decoration: none;
+        font-size: 14px;
+    }
+    
+    .back-link:hover {
+        text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2>Login</h2>
+  
+    <p style="color:red; text-align:center; font-size:14px;">{{ error }}</p>
+
+    <form method="post">
+        {% csrf_token %}
+      <div class="field">
+        <label>Email</label>
+        <input type="text" name="email" required>
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" name="password" required>
+      </div>
+      
+      <button type="submit">Login</button>
+    </form>
+
+    <a href="/" class="back-link">Back to Home</a>
+  </div>
+
+</body>
+</html>
