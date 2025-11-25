@@ -18,30 +18,54 @@
     <h1 style="margin:0;">All Users</h1>
     <div>
       Logged in as <strong>{% if current_user %}{{ current_user }}{% else %}User #{{ request.session.user_id|default:"-" }}{% endif %}</strong>
-      <a href="{% url 'logout' %}" class="button" style="margin-left:10px;">Logout</a>
+      <a href="{% url 'registration:logout_html' %}" class="button" style="margin-left:10px;">Logout</a>
     </div>
   </div>
+
+    <div style="margin-bottom: 12px;">
+  <a href="{% url 'registration:user_create_html' %}" class="button">Add New User</a>
+</div>
 
   <table>
     <thead>
       <tr>
         <th>#</th>
+        <th>Profile Picture</th>
         <th>First name</th>
         <th>Last name</th>
         <th>Email</th>
         <th>Gender</th>
         <th>Date registered</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
       {% for u in users %}
       <tr>
-        <td>{{ forloop.counter }}</td>
+            <td>{{ forloop.counter }}</td>
+                <td>
+                  {% if u.profile_picture %}
+                    <img src="{{ u.profile_picture.url }}" 
+                        alt="Profile Picture" 
+                        width="60" height="60"
+                        style="object-fit: cover; border-radius: 5px;">
+                  {% else %}
+                    No image
+                  {% endif %}
+                </td>
+
+    
         <td>{{ u.first_name }}</td>
         <td>{{ u.last_name }}</td>
         <td>{{ u.email }}</td>
         <td>{{ u.gender|default:"N/A" }}</td>
         <td>{{ u.date_registered|date:"Y-m-d H:i" }}</td>
+
+        <td>
+          <a href="{% url 'registration:user_update_html' u.id %}">Edit</a> |
+          <a href="{% url 'registration:user_delete_html' u.id %}">Delete</a>
+        </td>
+
       </tr>
       {% empty %}
       <tr><td colspan="6">No users yet.</td></tr>

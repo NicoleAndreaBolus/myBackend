@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="col-md-6 offset-md-3">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">{{ title }}</h4>
+            </div>
+
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+             
+                    <div class="mb-3">
+                        <label class="form-label">First Name</label>
+                        <input type="text" name="first_name" class="form-control"
+                               value="{% if user %}{{ user.first_name }}{% endif %}" required>
+                    </div>
+
+            
+                    <div class="mb-3">
+                        <label class="form-label">Last Name</label>
+                        <input type="text" name="last_name" class="form-control"
+                               value="{% if user %}{{ user.last_name }}{% endif %}" required>
+                    </div>
+
+            
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" name="email" class="form-control"
+                               value="{% if user %}{{ user.email }}{% endif %}" required>
+                    </div>
+
+             
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control"
+                               {% if title == 'Add User' %}required{% endif %}>
+                        <div class="form-text">
+                            {% if title == "Edit User" %}
+                                Leave empty to keep existing password.
+                            {% endif %}
+                        </div>
+                    </div>
+
+              
+                    <div class="mb-3">
+                        <label class="form-label">Gender</label>
+                        <select name="gender" class="form-select">
+                            <option value="">Select gender</option>
+                            <option value="Male" {% if user and user.gender == "Male" %}selected{% endif %}>Male</option>
+                            <option value="Female" {% if user and user.gender == "Female" %}selected{% endif %}>Female</option>
+                            <option value="Other" {% if user and user.gender == "Other" %}selected{% endif %}>Other</option>
+                        </select>
+                    </div>
+
+           
+                    <div class="mb-3">
+                        <label class="form-label">Profile Picture</label>
+                        <input type="file" name="profile_picture" class="form-control">
+
+                        {% if user and user.profile_picture %}
+                            <img src="{{ user.profile_picture.url }}" class="img-thumbnail mt-2" width="120">
+                        {% endif %}
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="{% url 'registration:users_html' %}" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary px-4">Save</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
